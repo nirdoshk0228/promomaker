@@ -54,6 +54,11 @@ class Store:
                             (job_id, promo_id, vote, (note or "")[:500], time.time()))
             return cur.lastrowid
 
+    def all_feedback(self) -> list[dict]:
+        with self._conn() as c:
+            rows = c.execute("SELECT job_id, promo_id, vote FROM feedback ORDER BY id").fetchall()
+        return [dict(r) for r in rows]
+
     def feedback_summary(self, job_id: str | None = None) -> dict:
         q = "SELECT promo_id, SUM(CASE WHEN vote>0 THEN 1 ELSE 0 END) up, SUM(CASE WHEN vote<0 THEN 1 ELSE 0 END) down " \
             "FROM feedback {} GROUP BY promo_id"

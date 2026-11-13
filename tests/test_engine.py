@@ -205,3 +205,43 @@ def test_edl_and_csv(result):
     assert edl.startswith("TITLE:") and "EP0" in edl
     csv_text = to_csv(result)
     assert csv_text.splitlines()[0].startswith("rank,promo_id")
+
+
+def test_rate_limit_is_retried_then_succeeds(show, monkeypatch):
+    slept = []
+    monkeypatch.setattr("promofinder.llm.time.sleep", lambda s: slept.append(s))
+    calls = {"n": 0}
+    ok = _fake_transport()
+
+    def handler(req):
+        calls["n"] += 1
+        if calls["n"] == 1:
+            return httpx.Response(429, json={"error": {"message": "Rate limit reached. Please try again in 7.5s."}})
+        return ok.handle_request(req)
+    rr = Reranker(LLMClient("groq", "k", transport=httpx.MockTransport(handler)), max_clips=12)
+    res = analyze(show, reranker=rr)
+    assert res["llm"]["judged"] == 12 and not res["llm"]["errors"]
+    assert slept and 7.5 <= slept[0] <= 8.5
+
+
+def test_bad_key_stops_early_with_reason(show, monkeypatch):
+    monkeypatch.setattr("promofinder.llm.time.sleep", lambda s: None)
+    calls = {"n": 0}
+
+    def handler(req):
+        calls["n"] += 1
+        return httpx.Response(401, json={"error": {"message": "Invalid API Key"}})
+    rr = Reranker(LLMClient("groq", "k", transport=httpx.MockTransport(handler)), max_clips=30)
+    res = analyze(show, reranker=rr)
+    assert calls["n"] == 1                       # no hammering after a fatal error
+    assert "Invalid API Key" in res["llm"]["errors"][0] and res["llm"]["stopped_early"]
+    plain = analyze(show)
+    assert {k: len(v) for k, v in res["per_episode"].items()} == {k: len(v) for k, v in plain["per_episode"].items()}
+
+
+def test_shortlist_is_capped_and_lists_stay_full(show):
+    rr = Reranker(LLMClient("groq", "k", transport=_fake_transport()), max_clips=40)
+    res = analyze(show, reranker=rr)
+    assert res["llm"]["shortlist"] == 40
+    plain = analyze(show)
+    assert {k: len(v) for k, v in res["per_episode"].items()} == {k: len(v) for k, v in plain["per_episode"].items()}

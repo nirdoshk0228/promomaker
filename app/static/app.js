@@ -1,7 +1,7 @@
 "use strict";
 const $ = (s, el = document) => el.querySelector(s);
 const $$ = (s, el = document) => [...el.querySelectorAll(s)];
-const state = { job: null, files: [], config: null, votes: {} };
+const state = { job: null, files: [], config: null, votes: {}, videos: [], videoTools: null };
 
 const esc = (s) => String(s ?? "").replace(/[&<>"']/g, (c) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[c]));
 const tc = (t) => { const m = Math.floor(t / 60), s = (t - m * 60).toFixed(1).padStart(4, "0"); return `${String(m).padStart(2, "0")}:${s}`; };
@@ -31,6 +31,7 @@ async function init() {
       $("#llm-row").classList.add("disabled");
       $("#llm-row").title = "Set PROMOFINDER_LLM_PROVIDER and PROMOFINDER_LLM_API_KEY on the server to enable";
     }
+    if (!state.config.learned_model) { $("#use_learned").checked = false; $("#use_learned").disabled = true; $("#learned-row").classList.add("disabled"); }
   } catch (e) { /* page still works without config */ }
   const jid = new URLSearchParams(location.search).get("job");
   if (jid) loadJob(jid);
@@ -55,6 +56,7 @@ function formData(useSample) {
   ["min_len", "max_len", "top_k"].forEach((id) => fd.append(id, $("#" + id).value));
   fd.append("allow_stitched", $("#allow_stitched").checked);
   fd.append("use_llm", $("#use_llm").checked);
+  fd.append("ranking", $("#use_learned").checked ? "learned" : "rules");
   return fd;
 }
 
@@ -94,8 +96,11 @@ function render(res) {
   $("#show-title").textContent = res.show.title;
   const st = res.stats, mins = Math.round(res.show.runtime_sec / 60);
   let stats = `${res.show.episodes} episodes, ${mins} min of story. Checked ${st.candidates.toLocaleString()} possible cuts in ${st.total_seconds.toFixed(2)} s.`;
+  stats += res.ranking === "learned" ? " Ranked by rules plus the trained model." : " Ranked by rules only.";
   if (res.llm) stats += ` AI editor (${res.llm.model}) judged ${res.llm.judged} shortlisted cuts.`;
-  if (res.llm && res.llm.errors && res.llm.errors.length) stats += " Some AI batches failed, so those cuts kept their heuristic score.";
+  if (res.llm && res.llm.errors && res.llm.errors.length) {
+    stats += ` The AI editor could not judge ${res.llm.shortlist - res.llm.judged} of ${res.llm.shortlist} cuts, so they kept their own score. Reason: ${res.llm.errors[0]}`;
+  }
   $("#run-stats").textContent = stats;
   ["csv", "edl", "json"].forEach((f) => { const a = $(`#exp-${f}`); a.href = `/api/jobs/${res.job_id}/export?format=${f}`; a.setAttribute("download", ""); });
 
@@ -116,6 +121,77 @@ function render(res) {
   $("#eval-out").innerHTML = "";
   $("#key-input").hidden = res.source === "sample";
   selectTab("top");
+  state.videos = [];
+  refreshVideos();
+}
+
+// ---------- video ----------
+async function refreshVideos() {
+  if (!state.job) return;
+  try {
+    const v = await api(`/api/jobs/${state.job.job_id}/videos`);
+    state.videos = v.linked; state.videoTools = v.video;
+  } catch { state.videos = []; }
+  const st = $("#video-status");
+  if (state.videoTools === false) { st.textContent = "Video export is not available on this server."; $("#video-btn").hidden = true; }
+  else if (state.videos.length) st.textContent = `Episode videos linked: ${state.videos.join(", ")}. Download MP4 cuts them at the promo timecodes.`;
+  else st.textContent = "No episode videos yet. Add them (named like episode-05.mp4) to download ready MP4 promos, or download demo MP4s that show the script's lines over a test pattern.";
+  $$(".promo").forEach(updateMp4Button);
+}
+
+function updateMp4Button(card) {
+  const btn = $(".mp4", card), p = card._promo;
+  if (!btn || !p) return;
+  const eps = p.segments.map((s) => s.episode);
+  const missing = eps.filter((e) => !state.videos.includes(e));
+  btn.disabled = state.videoTools === false;
+  if (!state.videos.length) { btn.textContent = "Download demo MP4"; btn.dataset.demo = "1"; btn.title = "Test-pattern video with the script's dialogue, cut at the promo timecodes"; }
+  else if (missing.length) { btn.textContent = "Download MP4"; btn.disabled = true; btn.title = `Add the video for episode ${missing.join(", ")}`; }
+  else { btn.textContent = "Download MP4"; btn.dataset.demo = ""; btn.title = ""; }
+}
+
+$("#video-input").addEventListener("change", (e) => uploadVideos([...e.target.files]));
+$("#video-btn").addEventListener("keydown", (e) => { if (e.key === "Enter" || e.key === " ") { e.preventDefault(); $("#video-input").click(); } });
+
+function uploadVideos(files) {
+  if (!files.length || !state.job) return;
+  const msg = $("#video-msg");
+  msg.hidden = false; msg.textContent = "Uploading 0%…";
+  const fd = new FormData();
+  files.forEach((f) => fd.append("files", f, f.name));
+  const xhr = new XMLHttpRequest();
+  xhr.open("POST", `/api/jobs/${state.job.job_id}/videos`);
+  xhr.upload.onprogress = (e) => { if (e.lengthComputable) msg.textContent = `Uploading ${Math.round((e.loaded / e.total) * 100)}%…`; };
+  xhr.onload = () => {
+    let body = {};
+    try { body = JSON.parse(xhr.responseText); } catch {}
+    if (xhr.status >= 400) { msg.textContent = body.detail || `Upload failed (${xhr.status})`; return; }
+    const notes = body.files.filter((f) => f.status !== "linked" || f.warning).map((f) => `${f.file}: ${f.reason || f.warning}`);
+    msg.textContent = `Linked ${body.files.filter((f) => f.status === "linked").length} video(s).` + (notes.length ? " " + notes.join(" ") : "");
+    refreshVideos();
+  };
+  xhr.onerror = () => { msg.textContent = "Upload failed. Check your connection and try again."; };
+  xhr.send(fd);
+  $("#video-input").value = "";
+}
+
+async function downloadMp4(p, btn) {
+  const demo = btn.dataset.demo === "1";
+  const label = btn.textContent;
+  btn.disabled = true; btn.textContent = "Cutting… (up to a minute)";
+  try {
+    const q = new URLSearchParams({ promo_id: p.id, vertical: $("#vertical").checked, demo });
+    const res = await fetch(`/api/jobs/${state.job.job_id}/clip?${q}`);
+    if (!res.ok) { const b = await res.json().catch(() => ({})); throw new Error(b.detail || `Failed (${res.status})`); }
+    const blob = await res.blob();
+    const cd = res.headers.get("content-disposition") || "";
+    const name = (cd.match(/filename="?([^";]+)"?/) || [])[1] || "promo.mp4";
+    const a = document.createElement("a");
+    a.href = URL.createObjectURL(blob); a.download = name; document.body.appendChild(a); a.click(); a.remove();
+    setTimeout(() => URL.revokeObjectURL(a.href), 4000);
+    btn.textContent = label;
+  } catch (e) { btn.textContent = "MP4 failed"; btn.title = e.message; setTimeout(() => (btn.textContent = label), 3000); }
+  finally { btn.disabled = false; }
 }
 
 function renderEpisode(num) {
@@ -176,6 +252,9 @@ function promoCard(p, isTop) {
     try { await navigator.clipboard.writeText(text); e.target.textContent = "Copied"; } catch { e.target.textContent = "Copy failed"; }
     setTimeout(() => (e.target.textContent = "Copy timecodes"), 1500);
   });
+  el._promo = p;
+  $(".mp4", el).addEventListener("click", (e) => downloadMp4(p, e.currentTarget));
+  updateMp4Button(el);
   const up = $(".vote.up", el), down = $(".vote.down", el);
   const mark = (v) => { up.setAttribute("aria-pressed", String(v === 1)); down.setAttribute("aria-pressed", String(v === -1)); };
   mark(state.votes[p.id]);
@@ -242,10 +321,31 @@ $("#eval-form").addEventListener("submit", async (e) => {
         <tr><td>Starts within 3 s of the editor's hook</td><td>${pct(e1.hook_start_within_3s)}</td><td>${pct(m.baseline.per_episode.hook_start_within_3s)}</td></tr>
         <tr><td>Falls for a trap moment</td><td>${pct(e1.top1_trap_rate)}</td><td>${pct(m.baseline.per_episode.top1_trap_rate)}</td></tr>
       </tbody></table>` : ""}
+      ${m.note ? `<p class="note">${esc(m.note)}</p>` : ""}
+      ${m.held_out ? `<h2>On episodes the model never saw</h2>
+      <p class="muted">Five-fold test: the model learns from 28 episodes and is judged on the other 7, five times over, so every episode is scored by a model that did not train on it.</p>
+      <table class="compare"><thead><tr><th>Per episode</th><th>Rules + model</th><th>Rules only</th></tr></thead><tbody>
+        <tr><td>Editor's promo in the top 3</td><td>${pct(m.held_out.blend["hit@3_strict"])}</td><td>${pct(m.held_out.rules["hit@3_strict"])}</td></tr>
+        <tr><td>First pick is the editor's promo</td><td>${pct(m.held_out.blend["hit@1_strict"])}</td><td>${pct(m.held_out.rules["hit@1_strict"])}</td></tr>
+        <tr><td>First pick starts within 3 s of the editor's hook</td><td>${pct(m.held_out.blend.hook_start_within_3s)}</td><td>${pct(m.held_out.rules.hook_start_within_3s)}</td></tr>
+        <tr><td>First pick falls for a trap</td><td>${pct(m.held_out.blend.top1_trap_rate)}</td><td>${pct(m.held_out.rules.top1_trap_rate)}</td></tr>
+      </tbody></table>` : ""}
+      <div id="weights"></div>
       <p class="muted">A match means the cuts overlap by at least half (IoU ≥ ${m.thresholds.strict_iou}). ${m.gold_count} hand-picked promos, ${m.trap_count} trap moments.</p>
       <table><thead><tr><th>Episode</th><th>First pick overlap</th><th>Best of top 3</th><th>Match in top 3</th></tr></thead><tbody>
       ${m.episode_rows.map((r) => `<tr><td>${r.episode}</td><td>${pct(r.top1_iou)}</td><td>${pct(r.best_of_3_iou)}</td><td class="${r["hit@3"] ? "ok" : "no"}">${r["hit@3"] ? "Yes" : "No"}</td></tr>`).join("")}
       </tbody></table>`;
+    if (state.job.ranking === "learned") {
+      const mi = await api("/api/model").catch(() => null);
+      if (mi && mi.available) {
+        const nice = (f) => f.replace(/^score_/, "").replace(/_/g, " ");
+        $("#weights").innerHTML = `<h2>What the model learned</h2>
+          <p class="muted">Positive weights push a cut up the list, negative ones push it down. Trained on ${esc(mi.meta.trained_on || "")}.</p>
+          <table class="weights"><thead><tr><th>Signal</th><th>Weight</th></tr></thead><tbody>
+          ${mi.top_weights.map((w) => `<tr><td>${esc(nice(w.feature))}</td><td class="${w.weight > 0 ? "ok" : "no"}">${w.weight > 0 ? "+" : ""}${w.weight.toFixed(2)}</td></tr>`).join("")}
+          </tbody></table>`;
+      }
+    }
   } catch (err) { out.innerHTML = `<p class="error">${esc(err.message)}</p>`; }
 });
 

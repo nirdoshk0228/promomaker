@@ -191,4 +191,57 @@ def score_candidate(cand: Candidate, idxs: dict[int, EpisodeIndex], min_len=20, 
     cand.reasons += good
     cand.warnings = bad + ([hook.note] if hook.note.startswith("opens on") else [])
     cand.hook_block, cand.cliff_block = hook.block, cliff.block  # used by the API for previews
+    cand.features = raw_features(cand, idxs)
     return cand
+
+
+def raw_features(cand: Candidate, idxs: dict[int, EpisodeIndex]) -> dict:
+    """Low-level signals behind the scores. The learned ranker uses these together with the component scores."""
+    first, last = cand.segments[0], cand.segments[-1]
+    i0, i1 = idxs[first.episode], idxs[last.episode]
+    hook_bl = i0.blocks_between(first.start, min(first.start + HOOK_WINDOW, first.end))
+    cliff_bl = i1.blocks_between(max(last.start, last.end - CLIFF_WINDOW), last.end)
+    hf = [(b, i0.bf[b.index]) for b in hook_bl]
+    cf = [(b, i1.bf[b.index]) for b in cliff_bl]
+    dlg_h = [f for b, f in hf if b.kind == "DIALOGUE"]
+    first_f = hf[0][1] if hf else None
+    speakers, expo, dream, comedy, flash, nblocks, backref = set(), 0, 0, 0, 0, 0, 0
+    first_dlg = None
+    for seg in cand.segments:
+        idx = idxs[seg.episode]
+        for b in idx.blocks_between(seg.start, seg.end):
+            f = idx.bf[b.index]
+            nblocks += 1
+            if b.kind == "DIALOGUE":
+                speakers.add(b.speaker)
+                backref += f.backref
+                if first_dlg is None:
+                    first_dlg = (b, f)
+            expo += f.exposition; dream += f.dream; comedy += f.comedy; flash += f.flashback
+    prev = i0.previous_dialogue(first.start)
+    return {
+        "hook_visual": max((f.physical for b, f in hf if b.kind != "DIALOGUE"), default=0),
+        "hook_energy": max((f.energy for f in dlg_h), default=0.0),
+        "hook_reveal": max((f.reveal for _, f in hf), default=0),
+        "hook_threat": max((f.threat for _, f in hf), default=0),
+        "hook_question": float(any(f.question for f in dlg_h)),
+        "hook_peak": max((f.intensity for _, f in hf), default=0.0),
+        "opens_establishing": float(bool(first_f and first_f.establishing)),
+        "starts_mid_conversation": float(prev is not None and first.start - prev.end < 1.2),
+        "first_line_needs_context": float(bool(first_dlg and (CONJUNCTION_START.match(first_dlg[0].text) or first_dlg[1].backref))),
+        "cliff_cue": sum(f.cliff_cue for _, f in cf),
+        "cliff_question": float(any(f.question or f.trailing for _, f in cf)),
+        "cliff_threat": max((f.threat for _, f in cf), default=0),
+        "cliff_reveal": max((f.reveal for _, f in cf), default=0),
+        "cliff_resolution": sum(f.resolution for _, f in cf),
+        "ends_at_episode_end": float(last.shot_to >= i1.last_content_shot),
+        "speakers": min(len(speakers), 6),
+        "backrefs": backref,
+        "exposition_per_10s": expo / max(cand.duration, 1) * 10,
+        "dream": float(dream > 0),
+        "comedy": float(comedy > 0),
+        "flashback_share": flash / max(nblocks, 1),
+        "segments": len(cand.segments),
+        "cross_episode": float(len(cand.episodes) > 1),
+        "duration": cand.duration,
+    }

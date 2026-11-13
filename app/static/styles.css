@@ -85,6 +85,14 @@ select { width: auto; min-width: 160px; }
 
 .results-head { display: flex; justify-content: space-between; align-items: flex-end; gap: 16px; flex-wrap: wrap; }
 .exports { display: flex; gap: 8px; }
+.videobar { display: flex; justify-content: space-between; align-items: center; gap: 12px; flex-wrap: wrap;
+  margin-top: 18px; padding: 12px 14px; border: 1px solid var(--line); border-radius: var(--r-sm); background: var(--surface); }
+.videobar p { margin: 0; font-size: 14px; }
+.video-actions { display: flex; gap: 14px; align-items: center; }
+.video-actions .check { margin: 0; }
+#video-msg { margin: 8px 0 0; }
+.weights { max-width: 520px; }
+.note { border-left: 3px solid var(--hook); padding: 8px 12px; background: var(--surface); border-radius: 4px; }
 .tabs { display: flex; gap: 4px; margin: 22px 0 10px; border-bottom: 1px solid var(--line); }
 .tabs button { background: none; border: 0; color: var(--muted); font: 500 15px var(--body); padding: 10px 14px;
   border-bottom: 2px solid transparent; cursor: pointer; }

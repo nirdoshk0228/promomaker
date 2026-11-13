@@ -7,6 +7,8 @@ services:
     envVars:
       - key: PROMOFINDER_DB
         value: /tmp/promofinder.db
+      - key: PROMOFINDER_ADMIN_TOKEN
+        generateValue: true
       - key: PROMOFINDER_LLM_PROVIDER
         sync: false
       - key: PROMOFINDER_LLM_API_KEY

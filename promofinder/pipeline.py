@@ -9,7 +9,7 @@ from .candidates import Config, single_candidates, stitched_candidates
 from .features import EpisodeIndex
 from .models import Candidate, Show
 from .scoring import WEIGHTS, score_candidate
-from .selection import select
+from .selection import candidate_overlap, select
 
 
 def fmt_tc(t: float) -> str:
@@ -25,6 +25,7 @@ def _block_dict(b):
 def candidate_payload(c: Candidate, idxs: dict[int, EpisodeIndex], rank: int) -> dict:
     d = c.to_dict()
     d["rank"] = rank
+    d["features"] = {k: round(float(v), 4) for k, v in getattr(c, "features", {}).items()}
     d["id"] = "-".join(f"e{s.episode}_{s.start:.1f}_{s.end:.1f}" for s in c.segments)
     for seg, sd in zip(c.segments, d["segments"]):
         idx = idxs[seg.episode]
@@ -37,32 +38,48 @@ def candidate_payload(c: Candidate, idxs: dict[int, EpisodeIndex], rank: int) ->
     return d
 
 
+def score_all(show: Show, cfg: Config):
+    """Generate and heuristically score every candidate. Returns (episode indexes, candidates, counts)."""
+    idxs = {ep.number: EpisodeIndex(ep) for ep in show.episodes}
+    singles = single_candidates(idxs, cfg)
+    stitched = stitched_candidates(idxs, cfg) if cfg.allow_stitched else []
+    cands = singles + stitched
+    for c in cands:
+        score_candidate(c, idxs, cfg.min_len, cfg.max_len)
+        c.scores["rules"] = c.score
+    return idxs, cands, {"single": len(singles), "stitched": len(stitched)}
+
+
 def analyze(show: Show, cfg: Optional[Config] = None, reranker: Optional[Callable] = None,
-            progress: Optional[Callable[[str], None]] = None) -> dict:
+            progress: Optional[Callable[[str], None]] = None, ranker=None) -> dict:
+    """ranker: optional LearnedRanker; when given, its probability replaces the rule-based score."""
     cfg = cfg or Config()
     t0 = time.perf_counter()
     say = progress or (lambda m: None)
-    idxs = {ep.number: EpisodeIndex(ep) for ep in show.episodes}
-    say("generating candidates")
-    singles = single_candidates(idxs, cfg)
-    stitched = stitched_candidates(idxs, cfg) if cfg.allow_stitched and len(show.episodes) >= 1 else []
-    cands = singles + stitched
-    say(f"scoring {len(cands)} candidates")
-    for c in cands:
-        score_candidate(c, idxs, cfg.min_len, cfg.max_len)
+    say("generating and scoring candidates")
+    idxs, cands, counts = score_all(show, cfg)
+    singles, stitched = counts["single"], counts["stitched"]
+    if ranker is not None and cands:
+        ranker.apply(cands)
     t_score = time.perf_counter()
 
     llm_info = None
     final_pool = cands
     if reranker is not None and cands:
-        # shortlist = the show-level top 2K plus each episode's top 3 (wider than what we finally show,
-        # so the LLM can promote a clip the heuristics under-ranked)
-        pool = {id(c): c for c in select(cands, k=max(cfg.top_k * 2, 30), max_overlap=cfg.overlap_iou,
-                                         max_per_episode=cfg.max_per_episode + 1)}
-        for ep in show.episodes:
-            for c in select(cands, k=cfg.per_episode + 1, max_overlap=cfg.overlap_iou, episode=ep.number,
-                            only_episode=True):
-                pool[id(c)] = c
+        # shortlist, in priority order: each episode's best clip, the show-level top list, then each
+        # episode's runners-up — capped so one run fits inside free-tier LLM rate limits
+        cap = getattr(reranker, "max_clips", 100)
+        per_ep = {ep.number: select(cands, k=cfg.per_episode, max_overlap=cfg.overlap_iou, episode=ep.number,
+                                    only_episode=True) for ep in show.episodes}
+        ordered = [p[0] for p in per_ep.values() if p]
+        ordered += select(cands, k=cfg.top_k, max_overlap=cfg.overlap_iou, max_per_episode=cfg.max_per_episode)
+        for rank in range(1, cfg.per_episode):
+            ordered += [p[rank] for p in per_ep.values() if len(p) > rank]
+        pool = {}
+        for c in ordered:
+            if len(pool) >= cap:
+                break
+            pool.setdefault(id(c), c)
         shortlist = list(pool.values())
         say(f"asking the LLM to judge {len(shortlist)} shortlisted promos")
         llm_info = reranker(shortlist, idxs)
@@ -75,9 +92,13 @@ def analyze(show: Show, cfg: Optional[Config] = None, reranker: Optional[Callabl
         # an episode's shortlist only uses footage from that episode; cross-episode stitches live in the show list
         picks = select(final_pool, k=cfg.per_episode, max_overlap=cfg.overlap_iou, episode=ep.number,
                        only_episode=True)
-        if not picks and final_pool is not cands:
-            picks = select(cands, k=cfg.per_episode, max_overlap=cfg.overlap_iou, episode=ep.number,
-                           only_episode=True)
+        if len(picks) < cfg.per_episode and final_pool is not cands:
+            # top up with clips the LLM did not judge (they keep their own score and carry no AI verdict)
+            for c in sorted((c for c in cands if not c.llm and c.episodes == [ep.number]), key=lambda c: -c.score):
+                if len(picks) >= cfg.per_episode:
+                    break
+                if all(candidate_overlap(c, p) <= cfg.overlap_iou for p in picks):
+                    picks.append(c)
         per_episode[ep.number] = [candidate_payload(c, idxs, r) for r, c in enumerate(picks, 1)]
     from .evaluate import baseline_result  # naive "last ~35 s of each episode" rule, kept for comparison
     baseline = baseline_result(show, "episode_end")
@@ -91,7 +112,8 @@ def analyze(show: Show, cfg: Optional[Config] = None, reranker: Optional[Callabl
         },
         "config": asdict(cfg),
         "weights": WEIGHTS,
-        "stats": {"candidates": len(cands), "single": len(singles), "stitched": len(stitched),
+        "ranking": "learned" if ranker is not None else "rules",
+        "stats": {"candidates": len(cands), "single": singles, "stitched": stitched,
                   "score_seconds": round(t_score - t0, 3), "total_seconds": round(elapsed, 3)},
         "llm": llm_info,
         "promos": [candidate_payload(c, idxs, r) for r, c in enumerate(top, 1)],

@@ -28,7 +28,7 @@ from .models import Candidate
 OPENAI_COMPAT = {
     "openai": ("https://api.openai.com/v1", "gpt-4o-mini"),
     "groq": ("https://api.groq.com/openai/v1", "llama-3.3-70b-versatile"),
-    "gemini": ("https://generativelanguage.googleapis.com/v1beta/openai", "gemini-2.0-flash"),
+    "gemini": ("https://generativelanguage.googleapis.com/v1beta/openai", "gemini-2.5-flash"),
     "openrouter": ("https://openrouter.ai/api/v1", "meta-llama/llama-3.3-70b-instruct"),
 }
 ANTHROPIC_DEFAULT_MODEL = "claude-haiku-5-5"
@@ -57,7 +57,42 @@ class LLMError(RuntimeError):
     pass
 
 
-def clip_transcript(c: Candidate, idxs: dict[int, EpisodeIndex], max_lines: int = 40) -> str:
+class LLMFatal(LLMError):
+    """An error retrying will not fix (bad key, unknown model, request too large, daily quota used up)."""
+
+
+def _api_error_message(r: httpx.Response) -> str:
+    try:
+        data = r.json()
+    except ValueError:
+        return (r.text or "").strip()[:200]
+    if isinstance(data, list) and data:
+        data = data[0]
+    err = data.get("error", data) if isinstance(data, dict) else data
+    if isinstance(err, dict):
+        err = err.get("message") or err.get("type") or json.dumps(err)[:200]
+    return str(err).strip()[:200]
+
+
+def _retry_after(r: httpx.Response, message: str) -> Optional[float]:
+    """Seconds to wait before retrying a 429, from the Retry-After header or the provider's message."""
+    h = r.headers.get("retry-after")
+    if h:
+        try:
+            return float(h)
+        except ValueError:
+            pass
+    m = re.search(r"try again in\s+(?:(\d+)m)?\s*(\d+(?:\.\d+)?)(ms|s)", message)
+    if m:
+        mins, val, unit = m.groups()
+        secs = float(val) / (1000 if unit == "ms" else 1)
+        return secs + 60 * int(mins or 0)
+    m = re.search(r"retry in\s+(\d+(?:\.\d+)?)s", message, re.I)  # Gemini: "Please retry in 21.4s"
+    return float(m.group(1)) if m else None
+
+
+def clip_transcript(c: Candidate, idxs: dict[int, EpisodeIndex], max_lines: int = 30, max_chars: int = 160) -> str:
+    """Compact transcript (keeps token use low enough for free-tier rate limits)."""
     lines, offset = [], 0.0
     for n, seg in enumerate(c.segments):
         if n:
@@ -67,9 +102,9 @@ def clip_transcript(c: Candidate, idxs: dict[int, EpisodeIndex], max_lines: int 
             t = offset + b.start - seg.start
             if b.kind == "DIALOGUE":
                 emo = f" ({', '.join(b.emotions + b.modifiers)})" if (b.emotions or b.modifiers) else ""
-                lines.append(f"[+{t:4.1f}s] {b.speaker}{emo}: \"{b.text}\"")
+                lines.append(f"[+{t:4.1f}s] {b.speaker}{emo}: \"{b.text[:max_chars]}\"")
             else:
-                lines.append(f"[+{t:4.1f}s] {b.kind}: {b.text}")
+                lines.append(f"[+{t:4.1f}s] {b.kind}: {b.text[:max_chars]}")
         offset += seg.duration
     if len(lines) > max_lines:
         lines = lines[: max_lines - 6] + ["[...]"] + lines[-5:]
@@ -94,7 +129,8 @@ def _extract_json_array(text: str) -> list:
 
 class LLMClient:
     def __init__(self, provider: str, api_key: str, model: Optional[str] = None, base_url: Optional[str] = None,
-                 timeout: float = 60.0, transport: Optional[httpx.BaseTransport] = None):
+                 timeout: float = 60.0, transport: Optional[httpx.BaseTransport] = None, max_wait: float = 30.0,
+                 max_attempts: int = 4):
         self.provider = provider.lower()
         if self.provider == "anthropic":
             self.base_url = base_url or "https://api.anthropic.com/v1"
@@ -110,20 +146,37 @@ class LLMClient:
         else:
             raise LLMError(f"unknown provider '{provider}'")
         self.api_key = api_key
+        self.max_wait, self.max_attempts = max_wait, max_attempts
         self.http = httpx.Client(timeout=timeout, transport=transport)
 
     def complete(self, system: str, user: str) -> str:
-        last = None
-        for attempt in range(3):
+        """One completion with retries. Rate limits (429) wait as long as the provider asks, up to max_wait."""
+        last = "unknown error"
+        for attempt in range(self.max_attempts):
             try:
                 return self._complete_once(system, user)
-            except (httpx.HTTPError, LLMError) as exc:
-                last = exc
-                status = getattr(getattr(exc, "response", None), "status_code", None)
-                if status in (400, 401, 403, 404):
-                    break
-                time.sleep(1.5 * (attempt + 1))
-        raise LLMError(f"{self.provider} call failed: {last}")
+            except httpx.HTTPStatusError as exc:
+                r = exc.response
+                msg = _api_error_message(r)
+                last = f"HTTP {r.status_code}: {msg}"
+                if r.status_code == 429:
+                    wait = _retry_after(r, msg)
+                    if wait is None:
+                        wait = 5.0 * (attempt + 1)
+                    if wait > self.max_wait or re.search(r"per day|daily|quota", msg, re.I) and wait > 5:
+                        raise LLMFatal(f"{self.provider}/{self.model} rate limit — {last}")
+                    time.sleep(wait + 0.5)
+                    continue
+                if r.status_code in (400, 401, 403, 404, 413, 422):
+                    raise LLMFatal(f"{self.provider}/{self.model} — {last}")
+                time.sleep(2.0 * (attempt + 1))
+            except httpx.TransportError as exc:
+                last = f"network error: {exc}"
+                time.sleep(2.0 * (attempt + 1))
+            except (KeyError, IndexError, ValueError) as exc:
+                last = f"unexpected reply: {exc}"
+                time.sleep(1.0)
+        raise LLMError(f"{self.provider}/{self.model} — {last}")
 
     def _complete_once(self, system: str, user: str) -> str:
         if self.provider == "anthropic":
@@ -144,9 +197,10 @@ class LLMClient:
 class Reranker:
     """Callable used by pipeline.analyze: rescoring happens in place on the candidates."""
 
-    def __init__(self, client: LLMClient, weight: float = 0.5, batch_size: int = 8, workers: int = 3,
-                 cache: Optional[dict] = None):
+    def __init__(self, client: LLMClient, weight: float = 0.5, batch_size: int = 6, workers: int = 1,
+                 cache: Optional[dict] = None, max_clips: int = 60):
         self.client, self.weight, self.batch_size, self.workers = client, weight, batch_size, workers
+        self.max_clips = max_clips          # pipeline sends at most this many clips per run
         self.cache = cache if cache is not None else {}
 
     def _key(self, transcript: str) -> str:
@@ -178,10 +232,16 @@ class Reranker:
                 todo.append((c, tr, k))
         batches = [todo[i:i + self.batch_size] for i in range(0, len(todo), self.batch_size)]
         errors = []
+        stop = {"flag": False}
 
         def run(batch):
+            if stop["flag"]:
+                return batch, {}, None
             try:
                 return batch, self._judge_batch([(_cid(c), tr) for c, tr, _ in batch]), None
+            except LLMFatal as exc:   # no point sending more batches
+                stop["flag"] = True
+                return batch, {}, str(exc)
             except Exception as exc:  # keep going: a failed batch just keeps heuristic scores
                 return batch, {}, str(exc)
 
@@ -207,8 +267,8 @@ class Reranker:
                 c.reasons.insert(0, f"Editor AI: {j['reason']}")
             n += 1
         return {"provider": self.client.provider, "model": self.client.model, "judged": n, "shortlist": len(cands),
-                "cached": len(cands) - len(todo), "errors": errors[:3], "seconds": round(time.perf_counter() - t0, 2),
-                "weight": self.weight}
+                "cached": len(cands) - len(todo), "errors": list(dict.fromkeys(errors))[:3],
+                "stopped_early": stop["flag"], "seconds": round(time.perf_counter() - t0, 2), "weight": self.weight}
 
 
 def make_reranker_from_env(cache: Optional[dict] = None) -> Optional[Reranker]:
@@ -217,8 +277,13 @@ def make_reranker_from_env(cache: Optional[dict] = None) -> Optional[Reranker]:
     if not provider or not key:
         return None
     client = LLMClient(provider, key, model=os.getenv("PROMOFINDER_LLM_MODEL") or None,
-                       base_url=os.getenv("PROMOFINDER_LLM_BASE_URL") or None)
-    return Reranker(client, weight=float(os.getenv("PROMOFINDER_LLM_WEIGHT", "0.5")), cache=cache)
+                       base_url=os.getenv("PROMOFINDER_LLM_BASE_URL") or None,
+                       max_wait=float(os.getenv("PROMOFINDER_LLM_MAX_WAIT", "30")))
+    # free tiers allow only a few requests/tokens per minute: go one batch at a time by default
+    return Reranker(client, weight=float(os.getenv("PROMOFINDER_LLM_WEIGHT", "0.5")), cache=cache,
+                    batch_size=int(os.getenv("PROMOFINDER_LLM_BATCH", "6")),
+                    workers=int(os.getenv("PROMOFINDER_LLM_WORKERS", "1")),
+                    max_clips=int(os.getenv("PROMOFINDER_LLM_MAX_CLIPS", "60")))
 
 
 def llm_status() -> dict:

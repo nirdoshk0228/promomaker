@@ -43,6 +43,7 @@
           <input type="number" id="top_k" value="20" min="1" max="100">
         </label>
         <label class="check"><input type="checkbox" id="allow_stitched" checked> Allow promos that join moments</label>
+        <label class="check" id="learned-row"><input type="checkbox" id="use_learned" checked> Use the ranking model trained on editors' picks</label>
         <label class="check" id="llm-row"><input type="checkbox" id="use_llm"> Ask the AI editor to re-rank the shortlist</label>
         <button type="submit" class="btn primary" id="run-btn">Find promos</button>
         <p id="form-error" class="error" role="alert" hidden></p>
@@ -73,6 +74,14 @@
             <a class="btn small" id="exp-json">Export JSON</a>
           </div>
         </div>
+        <div class="videobar">
+          <p id="video-status" class="muted"></p>
+          <div class="video-actions">
+            <label class="check"><input type="checkbox" id="vertical" checked> Vertical 9:16</label>
+            <label class="btn small" id="video-btn" tabindex="0">Add episode videos<input type="file" id="video-input" accept="video/*,.mp4,.mov,.mkv,.webm" multiple hidden></label>
+          </div>
+        </div>
+        <p id="video-msg" class="hint" hidden></p>
         <div class="tabs" role="tablist">
           <button role="tab" aria-selected="true" data-tab="top">Top promos</button>
           <button role="tab" aria-selected="false" data-tab="episodes">By episode</button>
@@ -119,6 +128,7 @@
       <div class="promo-actions">
         <button class="btn small toggle" aria-expanded="false">Show script</button>
         <button class="btn small copy">Copy timecodes</button>
+        <button class="btn small mp4">Download MP4</button>
         <span class="spacer"></span>
         <button class="btn small vote up" aria-pressed="false">Use this</button>
         <button class="btn small vote down" aria-pressed="false">Not this</button>

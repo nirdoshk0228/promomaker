@@ -59,3 +59,29 @@ def test_bad_inputs(client):
     assert client.post("/api/analyze", data={"use_sample": "true", "use_llm": "true"}).status_code == 400
     assert client.get("/api/jobs/nope").status_code == 404
     assert client.post("/api/feedback", json={"job_id": "nope", "promo_id": "x", "vote": 1}).status_code == 404
+
+
+def test_v2_endpoints(client, tmp_path):
+    import shutil, subprocess
+    r = client.post("/api/analyze", data={"use_sample": "true", "top_k": "5"}).json()
+    jid, p = r["job_id"], r["promos"][0]
+    assert r["ranking"] == "learned"
+    assert client.get("/api/model").json()["available"] is True
+    assert client.post("/api/model/retrain").status_code == 403
+    rules = client.post("/api/analyze", data={"use_sample": "true", "ranking": "rules"}).json()
+    assert rules["ranking"] == "rules"
+    if not shutil.which("ffmpeg"):
+        return
+    assert client.get(f"/api/jobs/{jid}/clip", params={"promo_id": p["id"]}).status_code == 409  # no video yet
+    demo = client.get(f"/api/jobs/{jid}/clip", params={"promo_id": p["id"], "demo": "true"})
+    assert demo.status_code == 200 and demo.headers["content-type"] == "video/mp4" and len(demo.content) > 10000
+    ep = p["segments"][0]["episode"]
+    src = tmp_path / f"episode-{ep:02d}.mp4"
+    subprocess.run(["ffmpeg", "-hide_banner", "-loglevel", "error", "-f", "lavfi", "-i",
+                    "testsrc2=size=320x180:rate=25:duration=150", "-c:v", "libx264", "-preset", "ultrafast", "-y", str(src)], check=True)
+    up = client.post(f"/api/jobs/{jid}/videos", files=[("files", (src.name, src.read_bytes(), "video/mp4")),
+                                                       ("files", ("notes.txt", b"x", "text/plain"))]).json()
+    assert ep in up["linked"] and any(f["status"] == "skipped" for f in up["files"])
+    if all(s["episode"] == ep for s in p["segments"]):
+        real = client.get(f"/api/jobs/{jid}/clip", params={"promo_id": p["id"], "vertical": "false"})
+        assert real.status_code == 200 and len(real.content) > 10000

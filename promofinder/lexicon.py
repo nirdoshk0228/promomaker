@@ -13,7 +13,7 @@ def _rx(words):
 
 # Physical shock / violence / danger — the strongest scroll-stoppers
 PHYSICAL = _rx([
-    r"slap\w*", r"thappad", r"punch\w*", r"kick\w*", r"shove\w*", r"push(es|ed)?", r"yank\w*", r"grab\w*",
+    r"slap\w*", r"thappad", r"punch\w*", r"swings? (at|across|into)", r"strikes?", r"hits?", r"beats?", r"attacks?", r"kick\w*", r"shove\w*", r"push(es|ed)?", r"yank\w*", r"grab\w*",
     r"throat", r"chok\w*", r"strangl\w*", r"tackl\w*", r"collaps\w*", r"faint\w*", r"falls?", r"fell",
     r"gun", r"revolver", r"pistol", r"shot fired", r"goli", r"knife", r"dagger", r"blade", r"whip\w*",
     r"fire", r"flames?", r"burning", r"catch(es|ing)? fire", r"erupts?", r"petrol", r"match(es)?", r"blood\w*", r"poison\w*", r"zeher", r"foam",
