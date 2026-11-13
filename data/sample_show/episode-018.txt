@@ -1,0 +1,194 @@
+EPISODE NUMBER: Episode 18
+EPISODE LOGLINE: The DNA report says "no match", and a triumphant Kaushalya slaps Meera and throws her out into the rain — but Arjun spots Bhanwar on the hospital's parking camera.
+CONTINUITY NOTES: Follows Episode 17, where Bhanwar bribed the lab technician to switch Meera's DNA sample.
+
+--- SCRIPT START ---
+
+SCENE 01
+Scene heading: INT. SURYAGARH HAVELI, TEMPLE – MORNING
+Scene start: 00:00.00
+Scene end: 00:12.70
+
+Actions and dialogue:
+
+**CAMERA:**
+Start: (00:00.00) | End: (00:05.50)
+Medium shot of Daadi Sa in her wheelchair before the idol, Meera kneeling beside her.
+
+**DAADI SA (Hopeful):**
+Start: (00:00.30) | End: (00:05.30)
+"Aaj report aayegi. Aaj sab ko pata chalega meri Meenakshi kaun hai."
+
+**CAMERA:**
+Start: (00:05.50) | End: (00:10.20)
+Close-up on Meera tying a red mauli thread around Daadi Sa's wrist.
+
+**MEERA (Soft):**
+Start: (00:05.80) | End: (00:10.00)
+"Report jo bhi kahe, Daadi Sa, aap meri hi rahengi."
+
+**CAMERA:**
+Start: (00:10.20) | End: (00:12.70)
+Close-up on Daadi Sa laughing through tears and pinching her cheek.
+
+SCENE 02
+Scene heading: INT. SURYAGARH HAVELI, DARBAR HALL – DAY
+Scene start: 00:12.70
+Scene end: 00:45.10
+
+Actions and dialogue:
+
+**CAMERA:**
+Start: (00:12.70) | End: (00:15.70)
+Wide shot of the whole family and staff gathered; Dr. Joshi holds a sealed envelope.
+
+**CAMERA:**
+Start: (00:15.70) | End: (00:18.20)
+Close-up on Meera clutching Daadi Sa's hand, praying silently.
+
+**CAMERA:**
+Start: (00:18.20) | End: (00:24.40)
+Insert shot: Dr. Joshi tearing open the envelope.
+
+**DR. JOSHI (Reading, Technical):**
+Start: (00:18.50) | End: (00:24.20)
+"Samples ke beech STR markers ka mel... shoonya pratishat. Koi jaivik rishta nahi hai."
+
+**CAMERA:**
+Start: (00:24.40) | End: (00:26.90)
+Close-up on Daadi Sa, shattered, shaking her head.
+
+**DAADI SA (Weak):**
+Start: (00:24.70) | End: (00:26.60)
+"Nahi... ye galat hai..."
+
+**CAMERA:**
+Start: (00:26.90) | End: (00:30.80)
+Close-up on Tanya laughing out loud.
+
+**TANYA (Mocking):**
+Start: (00:27.20) | End: (00:30.60)
+"Rajkumari Meenakshi! Haha! Naukrani ki naukrani hi rahegi."
+
+**CAMERA:**
+Start: (00:30.80) | End: (00:32.80)
+Medium shot as Kaushalya walks slowly up to Meera.
+
+**CAMERA:**
+Start: (00:32.80) | End: (00:39.30)
+Close-up as Kaushalya's hand cracks across Meera's face.
+
+**SOUND FX:**
+Start: (00:33.10) | End: (00:33.90)
+A loud SLAP echoing off the marble.
+
+**KAUSHALYA (Venomous):**
+Start: (00:34.10) | End: (00:39.10)
+"Rajkumari banne ka shauq? Ek boodhi aurat ke dimaag se khela tune!"
+
+**CAMERA:**
+Start: (00:39.30) | End: (00:45.10)
+Close-up on Meera, cheek red, too stunned to cry.
+
+**KAUSHALYA (Commanding):**
+Start: (00:39.60) | End: (00:44.90)
+"Iska saamaan bahar phenko. Aaj ke baad ye Suryagarh ki dehleez nahi laanghegi."
+
+SCENE 03
+Scene heading: EXT. SURYAGARH HAVELI, MAIN GATE – DAY (RAIN)
+Scene start: 00:45.10
+Scene end: 00:53.40
+
+Actions and dialogue:
+
+**CAMERA:**
+Start: (00:45.10) | End: (00:48.10)
+Wide shot of heavy monsoon rain; servants tossing Meera's tin trunk and clothes into the mud.
+
+**SOUND FX:**
+Start: (00:45.40) | End: (00:46.90)
+Thunder and pouring rain.
+
+**CAMERA:**
+Start: (00:48.10) | End: (00:50.60)
+Medium shot of Meera on her knees in the mud, gathering her clothes, soaked.
+
+**CAMERA:**
+Start: (00:50.60) | End: (00:53.40)
+Close-up on Meera picking up a photo of Kamla Bai, rain blurring it.
+
+**MEERA (Broken, Whispering):**
+Start: (00:50.90) | End: (00:53.20)
+"Maa, ab main kahan jaaun?"
+
+SCENE 04
+Scene heading: INT. CITY HOSPITAL, ICU CORRIDOR – DAY (RAIN)
+Scene start: 00:53.40
+Scene end: 01:06.80
+
+Actions and dialogue:
+
+**CAMERA:**
+Start: (00:53.40) | End: (00:56.40)
+Medium shot of Meera, soaked and muddy, curled up on a steel bench outside the ICU.
+
+**CAMERA:**
+Start: (00:56.40) | End: (01:04.30)
+Medium shot of a kind NURSE draping a hospital blanket over her shoulders.
+
+**NURSE (Gentle):**
+Start: (00:56.70) | End: (01:00.90)
+"Beti, yahan raat nahi guzaar sakte. Koi ghar nahi hai?"
+
+**MEERA (Empty):**
+Start: (01:01.10) | End: (01:04.10)
+"Ghar tha. Aaj usne mujhe nikaal diya."
+
+**CAMERA:**
+Start: (01:04.30) | End: (01:06.80)
+Close-up on Meera staring through the ICU glass at Kamla Bai.
+
+SCENE 05
+Scene heading: INT. ARJUN'S CAR – DAY (RAIN)
+Scene start: 01:06.80
+Scene end: 01:23.60
+
+Actions and dialogue:
+
+**CAMERA:**
+Start: (01:06.80) | End: (01:11.90)
+Medium shot of Arjun in his parked car, scrolling through hospital CCTV footage on his laptop.
+
+**ARJUN (On phone, Tense):**
+Start: (01:07.10) | End: (01:11.70)
+"Haan, kal raat ki parking footage. Do baje ke aas paas."
+
+**CAMERA:**
+Start: (01:11.90) | End: (01:14.40)
+Insert shot: grainy footage of a white safa in the hospital car park.
+
+**CAMERA:**
+Start: (01:14.40) | End: (01:16.40)
+Close-up on Arjun leaning in, eyes narrowing.
+
+**CAMERA:**
+Start: (01:16.40) | End: (01:18.90)
+Insert shot: the frame freezing on Bhanwar handing a cash bundle to the lab tech.
+
+**CAMERA:**
+Start: (01:18.90) | End: (01:22.60)
+Close-up on Arjun, a slow, dangerous realisation.
+
+**ARJUN (Low, Furious):**
+Start: (01:19.20) | End: (01:20.70)
+"Report jhooti hai."
+
+**SOUND FX:**
+Start: (01:20.90) | End: (01:22.40)
+Thunderclap; sharp string hit.
+
+**CAMERA:**
+Start: (01:22.60) | End: (01:23.60)
+Cut to black.
+
+--- SCRIPT END ---

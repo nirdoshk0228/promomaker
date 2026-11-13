@@ -1,0 +1,188 @@
+EPISODE NUMBER: Episode 5
+EPISODE LOGLINE: As the police drag Meera away in handcuffs, Daadi Sa defends her and Arjun produces CCTV footage that turns the accusation back on Tanya.
+CONTINUITY NOTES: Follows Episode 4, where Tanya planted her necklace in Meera's bag and Kaushalya called the police.
+
+--- SCRIPT START ---
+
+SCENE 01
+Scene heading: INT. SURYAGARH HAVELI, ARJUN'S ROOM – NIGHT (THE NIGHT BEFORE)
+Scene start: 00:00.00
+Scene end: 00:16.40
+
+Actions and dialogue:
+
+**CAMERA:**
+Start: (00:00.00) | End: (00:11.30)
+Medium shot of Arjun with a CCTV technician, checking a laptop grid of camera feeds.
+
+**TECHNICIAN (Proud):**
+Start: (00:00.30) | End: (00:05.60)
+"Sir, haveli ke chaalis kone cover ho gaye. Rani Sa ko bata dein?"
+
+**ARJUN (Quick):**
+Start: (00:05.80) | End: (00:11.10)
+"Nahi. Hotel ka trial run hai. Abhi kisi ko batane ki zaroorat nahi."
+
+**CAMERA:**
+Start: (00:11.30) | End: (00:16.40)
+Close-up on the laptop: a feed of the servants' pegs in the courtyard.
+
+**ARJUN (To himself):**
+Start: (00:11.60) | End: (00:16.20)
+"Is ghar mein deewaron ke kaan hain. Ab aankhein bhi hongi."
+
+SCENE 02
+Scene heading: INT. UDAIPUR COLLECTORATE, RECORDS ROOM – DAY
+Scene start: 00:16.40
+Scene end: 00:28.10
+
+Actions and dialogue:
+
+**CAMERA:**
+Start: (00:16.40) | End: (00:22.60)
+Medium shot of a dusty government records room; a bored RECORDS CLERK handing Arjun a thin file.
+
+**RECORDS CLERK (Bored):**
+Start: (00:16.70) | End: (00:22.40)
+"Shikargah aag, 2004. Bas itna hi bacha hai. Baaki pannon ko deemak kha gayi."
+
+**CAMERA:**
+Start: (00:22.60) | End: (00:26.10)
+Insert shot: the file with half its pages torn out cleanly, not eaten.
+
+**ARJUN (Cold):**
+Start: (00:22.90) | End: (00:25.90)
+"Deemak ko kainchi chalani bhi aati hai?"
+
+**CAMERA:**
+Start: (00:26.10) | End: (00:28.10)
+Close-up on the clerk avoiding his eyes.
+
+SCENE 03
+Scene heading: INT. SURYAGARH HAVELI, COURTYARD – DAY
+Scene start: 00:28.10
+Scene end: 01:25.30
+
+Actions and dialogue:
+
+**CAMERA:**
+Start: (00:28.10) | End: (00:31.10)
+Wide shot of a police jeep rolling through the haveli gates.
+
+**SOUND FX:**
+Start: (00:28.40) | End: (00:29.90)
+Jeep engine and crunching gravel.
+
+**CAMERA:**
+Start: (00:31.10) | End: (00:34.30)
+Medium shot of INSPECTOR SHEKHAWAT, moustached and heavy-set, saluting Kaushalya.
+
+**INSPECTOR SHEKHAWAT (Respectful):**
+Start: (00:31.40) | End: (00:34.10)
+"Hukum, Rani Sa. Kaun hai chor?"
+
+**CAMERA:**
+Start: (00:34.30) | End: (00:39.40)
+Close-up on Tanya pointing at Meera.
+
+**TANYA (Triumphant):**
+Start: (00:34.60) | End: (00:39.20)
+"Yahi hai. Saalon se is ghar ka namak kha rahi hai."
+
+**CAMERA:**
+Start: (00:39.40) | End: (00:41.90)
+Medium shot of Shekhawat stepping forward with handcuffs.
+
+**CAMERA:**
+Start: (00:41.90) | End: (00:49.00)
+Insert shot: steel cuffs snapping shut around Meera's wrists.
+
+**SOUND FX:**
+Start: (00:42.20) | End: (00:43.00)
+Metallic click of handcuffs.
+
+**MEERA (Sobbing):**
+Start: (00:43.20) | End: (00:45.90)
+"Maine kuch nahi kiya, Inspector Sahab!"
+
+**INSPECTOR SHEKHAWAT (Gruff):**
+Start: (00:46.10) | End: (00:48.80)
+"Thane chal. Wahan sab bata dena."
+
+**CAMERA:**
+Start: (00:49.00) | End: (00:51.00)
+Close-up on Kamla Bai, clutching her chest, held back by two servants.
+
+**CAMERA:**
+Start: (00:51.00) | End: (00:54.20)
+Wide shot as a wheelchair rolls into the courtyard; Daadi Sa pushes herself forward.
+
+**DAADI SA (Fierce, Shaking):**
+Start: (00:51.30) | End: (00:54.00)
+"Ruko! Ye ladki chor nahi hai!"
+
+**CAMERA:**
+Start: (00:54.20) | End: (00:58.10)
+Close-up on Kaushalya, controlled smile.
+
+**KAUSHALYA (Sweet, Dismissive):**
+Start: (00:54.50) | End: (00:57.90)
+"Maa Sa, aapki tabiyat theek nahi. Andar chaliye."
+
+**CAMERA:**
+Start: (00:58.10) | End: (01:00.10)
+Close-up on Tanya, smirking with folded arms.
+
+**CAMERA:**
+Start: (01:00.10) | End: (01:03.60)
+Medium shot as Arjun walks in from the gate, phone in hand.
+
+**ARJUN (Calm, Sharp):**
+Start: (01:00.40) | End: (01:03.40)
+"Ek minute, Inspector Sahab. Ye dekh lijiye."
+
+**CAMERA:**
+Start: (01:03.60) | End: (01:09.10)
+Insert shot: phone screen showing CCTV footage of Tanya slipping the necklace into Meera's jhola.
+
+**ARJUN (Even):**
+Start: (01:03.90) | End: (01:08.90)
+"Hotel ke liye pichle hafte hi poori haveli mein camere lagwaye the."
+
+**CAMERA:**
+Start: (01:09.10) | End: (01:11.10)
+Close-up on the inspector, eyebrows rising.
+
+**CAMERA:**
+Start: (01:11.10) | End: (01:15.40)
+Close-up on Tanya, smirk collapsing into panic.
+
+**TANYA (Stammering):**
+Start: (01:11.40) | End: (01:15.20)
+"Ye... ye fake hai! Arjun, tum uski taraf se—"
+
+**CAMERA:**
+Start: (01:15.40) | End: (01:17.90)
+Medium shot of the servants gasping and turning to Tanya.
+
+**CAMERA:**
+Start: (01:17.90) | End: (01:21.80)
+Close-up on Arjun facing Kaushalya directly.
+
+**ARJUN (Cold, Challenging):**
+Start: (01:18.20) | End: (01:21.60)
+"Ab bataiye, Rani Sa. Police kise le jaaye?"
+
+**CAMERA:**
+Start: (01:21.80) | End: (01:24.30)
+Extreme close-up on Kaushalya's eye twitching with fury.
+
+**SOUND FX:**
+Start: (01:22.10) | End: (01:23.60)
+Sharp string hit.
+
+**CAMERA:**
+Start: (01:24.30) | End: (01:25.30)
+Cut to black.
+
+--- SCRIPT END ---

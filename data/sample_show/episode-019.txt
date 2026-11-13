@@ -1,0 +1,206 @@
+EPISODE NUMBER: Episode 19
+EPISODE LOGLINE: Arjun corners the lab technician and records his confession, while Meera, walking alone in the rain, is snatched off the road by Devraj's men.
+CONTINUITY NOTES: Follows Episode 18, where Meera was thrown out of the haveli and Arjun saw Bhanwar bribing the lab tech on CCTV.
+
+--- SCRIPT START ---
+
+SCENE 01
+Scene heading: INT. ARJUN'S CAR – NIGHT (RAIN)
+Scene start: 00:00.00
+Scene end: 00:15.20
+
+Actions and dialogue:
+
+**CAMERA:**
+Start: (00:00.00) | End: (00:12.70)
+Medium shot of Arjun driving fast, wipers thrashing, the CCTV still frozen on his laptop on the passenger seat.
+
+**ARJUN (On phone, Urgent):**
+Start: (00:00.30) | End: (00:06.40)
+"SP Rathi, footage mil gayi. Diwan Bhanwar Singh lab wale ko paise de raha hai."
+
+**SP RATHI (On phone, Measured):**
+Start: (00:06.60) | End: (00:10.40)
+"Paise dena jurm nahi, Mr Rathore. Mujhe qubool-naama chahiye."
+
+**ARJUN (Grim):**
+Start: (00:10.60) | End: (00:12.50)
+"Mil jaayega. Aaj hi."
+
+**CAMERA:**
+Start: (00:12.70) | End: (00:15.20)
+Close-up on Arjun turning into a narrow lane, checking an address on his phone.
+
+SCENE 02
+Scene heading: INT. LAB TECH'S FLAT – NIGHT
+Scene start: 00:15.20
+Scene end: 00:39.30
+
+Actions and dialogue:
+
+**CAMERA:**
+Start: (00:15.20) | End: (00:18.20)
+Medium shot of a cramped flat; the lab tech stuffing clothes into a bag in a panic.
+
+**SOUND FX:**
+Start: (00:15.50) | End: (00:17.00)
+Hammering on the door.
+
+**CAMERA:**
+Start: (00:18.20) | End: (00:20.20)
+Medium shot as the door bursts open and Arjun storms in.
+
+**CAMERA:**
+Start: (00:20.20) | End: (00:30.00)
+Close-up as Arjun slams the lab tech against the wall by the collar.
+
+**ARJUN (Furious):**
+Start: (00:20.50) | End: (00:24.30)
+"Paanch lakh mein ek ladki ki pehchaan bech di?"
+
+**LAB TECH (Terrified):**
+Start: (00:24.50) | End: (00:29.80)
+"Mujhe maaf kar do! Report maine badli! Diwan Bhanwar Singh ne kaha tha!"
+
+**CAMERA:**
+Start: (00:30.00) | End: (00:36.80)
+Insert shot: Arjun's phone in his shirt pocket, the red recording light blinking.
+
+**ARJUN (Cold):**
+Start: (00:30.30) | End: (00:32.20)
+"Asli sample kahan hai?"
+
+**LAB TECH (Sobbing):**
+Start: (00:32.40) | End: (00:36.60)
+"Fridge mein... maine phenka nahi. Darr tha, kabhi zaroorat pade."
+
+**CAMERA:**
+Start: (00:36.80) | End: (00:39.30)
+Close-up on Arjun releasing him, already dialling Meera.
+
+**SOUND FX:**
+Start: (00:37.10) | End: (00:38.60)
+Phone ringing on the other end.
+
+SCENE 03
+Scene heading: EXT. BUS STAND OUTSIDE SURYAGARH – NIGHT (RAIN)
+Scene start: 00:39.30
+Scene end: 00:58.30
+
+Actions and dialogue:
+
+**CAMERA:**
+Start: (00:39.30) | End: (00:42.30)
+Medium shot of Meera at a deserted bus stand, counting a few crumpled notes; the last bus pulling away.
+
+**SOUND FX:**
+Start: (00:39.60) | End: (00:41.10)
+Bus engine fading into the rain.
+
+**CAMERA:**
+Start: (00:42.30) | End: (00:55.80)
+Medium shot of an old CHAIWALA under a tin shed holding out a steaming glass.
+
+**CHAIWALA (Kind):**
+Start: (00:42.60) | End: (00:49.50)
+"Le beti, garam chai. Paise nahi chahiye. Is baarish mein koi apni beti ko akela nahi chhodta."
+
+**MEERA (Moved):**
+Start: (00:49.70) | End: (00:52.40)
+"Aap mujhe jaante bhi nahi, Kaka."
+
+**CHAIWALA (Smiling):**
+Start: (00:52.60) | End: (00:55.60)
+"Jaanne ke liye dil chahiye, kaagaz nahi."
+
+**CAMERA:**
+Start: (00:55.80) | End: (00:58.30)
+Close-up on Meera wrapping both hands around the glass, warming herself, then walking on down the highway.
+
+SCENE 04
+Scene heading: INT. SURYAGARH HAVELI, KAUSHALYA'S CHAMBER – NIGHT
+Scene start: 00:58.30
+Scene end: 01:10.70
+
+Actions and dialogue:
+
+**CAMERA:**
+Start: (00:58.30) | End: (01:10.70)
+Medium shot of Kaushalya on the phone, watching rain lash the window.
+
+**KAUSHALYA (On phone, Calm):**
+Start: (00:58.60) | End: (01:03.20)
+"Ladki highway pe akeli hai, Devraj. Baarish hai. Sadak khaali hai."
+
+**DEVRAJ (On phone, Eager):**
+Start: (01:03.40) | End: (01:05.30)
+"Bas hukum do, Maa."
+
+**KAUSHALYA (Measured):**
+Start: (01:05.50) | End: (01:10.50)
+"Hukum nahi. Bas itna yaad rakhna, haadse baarish mein hi hote hain."
+
+SCENE 05
+Scene heading: EXT. HIGHWAY OUTSIDE SURYAGARH – NIGHT (RAIN)
+Scene start: 01:10.70
+Scene end: 01:31.70
+
+Actions and dialogue:
+
+**CAMERA:**
+Start: (01:10.70) | End: (01:13.70)
+Wide shot of a lonely road in the rain; Meera walks with her tin trunk under a broken streetlight.
+
+**CAMERA:**
+Start: (01:13.70) | End: (01:15.70)
+Insert shot: Meera's phone buzzing in her bag — "Arjun calling".
+
+**CAMERA:**
+Start: (01:15.70) | End: (01:17.70)
+Close-up on Meera looking at it, hurt, choosing not to answer.
+
+**CAMERA:**
+Start: (01:17.70) | End: (01:20.20)
+Medium shot of a black van slowing down beside her, headlights off.
+
+**SOUND FX:**
+Start: (01:18.00) | End: (01:19.50)
+Van engine idling; tyres hissing on wet road.
+
+**CAMERA:**
+Start: (01:20.20) | End: (01:21.70)
+Close-up as the van door slides open.
+
+**CAMERA:**
+Start: (01:21.70) | End: (01:23.70)
+Medium shot as two men grab Meera and pull a gunny sack over her head.
+
+**MEERA (Muffled, Screaming):**
+Start: (01:22.00) | End: (01:23.50)
+"Bachaao! Chhodo mujhe!"
+
+**CAMERA:**
+Start: (01:23.70) | End: (01:25.70)
+Insert shot: the tin trunk falling, clothes spilling onto the road.
+
+**CAMERA:**
+Start: (01:25.70) | End: (01:27.70)
+Medium shot of the van speeding away into the rain.
+
+**SOUND FX:**
+Start: (01:26.00) | End: (01:27.50)
+Tyres screeching.
+
+**CAMERA:**
+Start: (01:27.70) | End: (01:30.70)
+Extreme close-up on Meera's phone lying in a puddle, screen glowing — "Arjun calling".
+
+**SOUND FX:**
+Start: (01:28.00) | End: (01:29.50)
+Phone ringing on and on; thunder.
+
+**CAMERA:**
+Start: (01:30.70) | End: (01:31.70)
+Cut to black.
+
+--- SCRIPT END ---

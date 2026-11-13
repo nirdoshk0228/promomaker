@@ -1,0 +1,23 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Answer key format — PromoFinder</title><link rel="stylesheet" href="/static/styles.css">
+<style>main{max-width:760px;margin:0 auto;padding:32px 24px}pre{background:var(--surface);border:1px solid var(--line);border-radius:8px;padding:16px;overflow:auto;font-size:13px}</style></head>
+<body><main>
+<h1>Answer key format</h1>
+<p class="muted">An answer key lists the promos a human editor would cut, so PromoFinder's picks can be checked against them. Times are episode timecodes as <code>MM:SS.ss</code> (or plain seconds).</p>
+<pre>{
+  "promos": [
+    { "promo_id": "P01", "type": "single",
+      "segments": [ { "episode": 1, "start": "01:00.40", "end": "01:33.00" } ],
+      "why": "Opens on the slap, ends on the frozen face" },
+    { "promo_id": "P07", "type": "stitched",
+      "segments": [ { "episode": 1, "start": "01:00.40", "end": "01:06.40" },
+                    { "episode": 6, "start": "00:36.10", "end": "00:57.40" } ] }
+  ],
+  "traps": [
+    { "episode": 5, "start": "00:44.10", "end": "00:47.20",
+      "reason": "Loud line, but needs earlier context" }
+  ]
+}</pre>
+<p><b>traps</b> is optional: moments that look dramatic but should not open or close a promo. The check reports how often PromoFinder falls for them.</p>
+<p><a href="/">Back to PromoFinder</a></p>
+</main></body></html>

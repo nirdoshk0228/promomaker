@@ -1,0 +1,131 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>PromoFinder — find promo clips in micro-drama scripts</title>
+  <meta name="description" content="Reads a micro-drama screenplay and suggests 20–60 second promo clips with a hook, a cliffhanger and enough context for new viewers.">
+  <link rel="preload" href="/static/fonts/ibm-plex-sans-400.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="stylesheet" href="/static/styles.css">
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><rect x='9' y='3' width='14' height='26' rx='3' fill='%23F2B035'/><rect x='12' y='9' width='8' height='10' fill='%231A1730'/></svg>">
+</head>
+<body>
+  <header class="topbar">
+    <a class="brand" href="/" aria-label="PromoFinder home">
+      <svg viewBox="0 0 32 32" width="26" height="26" aria-hidden="true"><rect x="9" y="3" width="14" height="26" rx="3" fill="#F2B035"/><rect x="12" y="9" width="8" height="10" fill="#1A1730"/></svg>
+      <span>PromoFinder</span>
+    </a>
+    <p class="tagline">Script in, promo cuts out.</p>
+    <span id="llm-pill" class="pill" hidden></span>
+  </header>
+
+  <main class="layout">
+    <aside class="panel" aria-label="Load a show">
+      <h2>Load a show</h2>
+      <form id="analyze-form">
+        <label class="drop" id="drop" tabindex="0">
+          <input type="file" id="file-input" name="files" accept=".zip,.txt" multiple>
+          <strong>Drop a .zip of episodes</strong>
+          <span>or one or more episode .txt files</span>
+          <span id="file-list" class="file-list"></span>
+        </label>
+        <button type="button" class="btn ghost" id="sample-btn">Use the sample show</button>
+        <p class="hint">Sample: <em>Naukrani Nahi, Rajkumari Hoon Main</em> — 35 episodes, original script with a hand-labelled answer key.</p>
+
+        <fieldset>
+          <legend>Promo length</legend>
+          <div class="range-row">
+            <label>From <input type="number" id="min_len" value="20" min="5" max="170" step="1"> s</label>
+            <label>to <input type="number" id="max_len" value="60" min="10" max="180" step="1"> s</label>
+          </div>
+        </fieldset>
+        <label class="field">How many promos for the show
+          <input type="number" id="top_k" value="20" min="1" max="100">
+        </label>
+        <label class="check"><input type="checkbox" id="allow_stitched" checked> Allow promos that join moments</label>
+        <label class="check" id="llm-row"><input type="checkbox" id="use_llm"> Ask the AI editor to re-rank the shortlist</label>
+        <button type="submit" class="btn primary" id="run-btn">Find promos</button>
+        <p id="form-error" class="error" role="alert" hidden></p>
+      </form>
+      <div id="show-meta" class="show-meta" hidden></div>
+    </aside>
+
+    <section class="work" aria-live="polite">
+      <div id="empty" class="empty">
+        <h1>Find the promos hiding in your show.</h1>
+        <p>PromoFinder reads the screenplay, tries every 20–60 second cut, and keeps the ones that open on a hook, end on a cliffhanger and make sense to someone who has never seen the show.</p>
+        <ol class="how">
+          <li><b>Parse</b> every timecoded shot, line and sound cue.</li>
+          <li><b>Score</b> thousands of candidate cuts on hook, cliffhanger and context.</li>
+          <li><b>Pick</b> a non-overlapping shortlist you can export straight to your editor.</li>
+        </ol>
+      </div>
+
+      <div id="results" hidden>
+        <div class="results-head">
+          <div>
+            <h1 id="show-title"></h1>
+            <p id="run-stats" class="muted"></p>
+          </div>
+          <div class="exports" role="group" aria-label="Export">
+            <a class="btn small" id="exp-csv">Export CSV</a>
+            <a class="btn small" id="exp-edl">Export EDL</a>
+            <a class="btn small" id="exp-json">Export JSON</a>
+          </div>
+        </div>
+        <div class="tabs" role="tablist">
+          <button role="tab" aria-selected="true" data-tab="top">Top promos</button>
+          <button role="tab" aria-selected="false" data-tab="episodes">By episode</button>
+          <button role="tab" aria-selected="false" data-tab="eval">Accuracy check</button>
+        </div>
+        <div class="legend" aria-hidden="true">
+          <span><i class="sw hook"></i>Hook: first 3 s</span>
+          <span><i class="sw cliff"></i>Cliffhanger: last 4.5 s</span>
+          <span><i class="sw cut"></i>The cut</span>
+        </div>
+        <div id="tab-top" class="tab"></div>
+        <div id="tab-episodes" class="tab" hidden>
+          <label class="field inline">Episode <select id="ep-select"></select></label>
+          <div id="ep-list"></div>
+        </div>
+        <div id="tab-eval" class="tab" hidden>
+          <p class="muted">Compare the picks with promos an editor chose by hand. For the sample show the answer key is built in; for your own show, upload one (<a href="/static/answer_key_format.html" target="_blank" rel="noopener">format</a>).</p>
+          <form id="eval-form" class="eval-form">
+            <input type="file" id="key-input" accept=".json">
+            <button class="btn primary" type="submit">Run accuracy check</button>
+          </form>
+          <div id="eval-out"></div>
+        </div>
+      </div>
+      <div id="loading" class="loading" hidden><div class="reel" aria-hidden="true"></div><p id="loading-text">Reading the script…</p></div>
+    </section>
+  </main>
+  <footer class="foot">PromoFinder v<span id="ver"></span>. Uploaded scripts stay on this server and are not shared or used for training.</footer>
+  <template id="promo-tpl">
+    <article class="promo">
+      <header class="promo-head">
+        <span class="rank"></span>
+        <div class="promo-title"></div>
+        <div class="score"><span class="score-num"></span><span class="score-lbl">score</span></div>
+      </header>
+      <div class="ribbons"></div>
+      <div class="lines">
+        <p class="line open"><span>Opens</span><q></q></p>
+        <p class="line end"><span>Ends</span><q></q></p>
+      </div>
+      <div class="meters"></div>
+      <ul class="why"></ul>
+      <ul class="warn"></ul>
+      <div class="promo-actions">
+        <button class="btn small toggle" aria-expanded="false">Show script</button>
+        <button class="btn small copy">Copy timecodes</button>
+        <span class="spacer"></span>
+        <button class="btn small vote up" aria-pressed="false">Use this</button>
+        <button class="btn small vote down" aria-pressed="false">Not this</button>
+      </div>
+      <div class="transcript" hidden></div>
+    </article>
+  </template>
+  <script src="/static/app.js" defer></script>
+</body>
+</html>

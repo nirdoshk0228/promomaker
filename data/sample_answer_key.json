@@ -1,0 +1,716 @@
+{
+  "promos": [
+    {
+      "promo_id": "P01",
+      "type": "single",
+      "total_seconds": 32.6,
+      "why": "Single continuous: opens on Tanya's slap (instant hook), ends on Kaushalya's frozen face holding the payal (unresolved). Understandable alone: rich girl humiliates maid, maid has a secret.",
+      "segments": [
+        {
+          "episode": 1,
+          "start": "01:38.90",
+          "end": "02:11.50",
+          "seconds": 32.6
+        }
+      ]
+    },
+    {
+      "promo_id": "P02",
+      "type": "single",
+      "total_seconds": 53.9,
+      "why": "Opens on Kaushalya pinning Meera to the wall by the throat (hook), ends on her order to Bhanwar to remove Meera \"forever\" (cliffhanger). Clear stakes without backstory.",
+      "segments": [
+        {
+          "episode": 2,
+          "start": "00:57.40",
+          "end": "01:51.30",
+          "seconds": 53.9
+        }
+      ]
+    },
+    {
+      "promo_id": "P03",
+      "type": "single",
+      "total_seconds": 32.1,
+      "why": "Opens on Meera being shoved into the dark baoli water (hook), ends on Arjun freezing at the half-moon birthmark (unresolved reveal).",
+      "segments": [
+        {
+          "episode": 3,
+          "start": "01:18.50",
+          "end": "01:50.60",
+          "seconds": 32.1
+        }
+      ]
+    },
+    {
+      "promo_id": "P04",
+      "type": "single",
+      "total_seconds": 20.9,
+      "why": "Opens on Tanya screaming \"chor\" with the necklace pulled from the bag (hook), ends on Kaushalya calling the police (cliffhanger). Fully self-contained.",
+      "segments": [
+        {
+          "episode": 4,
+          "start": "01:26.40",
+          "end": "01:47.30",
+          "seconds": 20.9
+        }
+      ]
+    },
+    {
+      "promo_id": "P05",
+      "type": "single",
+      "total_seconds": 39.7,
+      "why": "Opens on the handcuffs clicking onto Meera (hook), ends on Arjun asking Rani Sa whom the police should take now (cliffhanger twist). Clear underdog reversal.",
+      "segments": [
+        {
+          "episode": 5,
+          "start": "00:41.90",
+          "end": "01:21.60",
+          "seconds": 39.7
+        }
+      ]
+    },
+    {
+      "promo_id": "P06",
+      "type": "single",
+      "total_seconds": 21.3,
+      "why": "Opens on Devraj grabbing Meera in the stables and her slap (hook within 3 s), ends on his threat that she'll pay with her life (cliffhanger). Works standalone: drunk royal harasses maid, maid fights back.",
+      "segments": [
+        {
+          "episode": 6,
+          "start": "01:07.00",
+          "end": "01:28.30",
+          "seconds": 21.3
+        }
+      ]
+    },
+    {
+      "promo_id": "P07",
+      "type": "stitched",
+      "total_seconds": 27.3,
+      "why": "Stitched across Ep 1 and Ep 6: Tanya slaps Meera, then Meera slaps Devraj — the \"she hits back\" arc in one promo, ending on Devraj's death threat.",
+      "segments": [
+        {
+          "episode": 1,
+          "start": "01:38.90",
+          "end": "01:44.90",
+          "seconds": 6.0
+        },
+        {
+          "episode": 6,
+          "start": "01:07.00",
+          "end": "01:28.30",
+          "seconds": 21.3
+        }
+      ]
+    },
+    {
+      "promo_id": "P08",
+      "type": "single",
+      "total_seconds": 34.4,
+      "why": "Opens on Kamla Bai's line \"Tu meri kokh se nahi janmi\" (shocking reveal hook), ends on Bhanwar's eye at the jharokha (cliffhanger).",
+      "segments": [
+        {
+          "episode": 7,
+          "start": "01:05.20",
+          "end": "01:39.60",
+          "seconds": 34.4
+        }
+      ]
+    },
+    {
+      "promo_id": "P09",
+      "type": "single",
+      "total_seconds": 31.2,
+      "why": "Opens on Kamla Bai collapsing mid-aarti, the thali crashing (hook), ends on her whispered clue and the monitor alarm (cliffhanger). Mother-daughter bond is clear without backstory.",
+      "segments": [
+        {
+          "episode": 8,
+          "start": "00:59.30",
+          "end": "01:30.50",
+          "seconds": 31.2
+        }
+      ]
+    },
+    {
+      "promo_id": "P10",
+      "type": "single",
+      "total_seconds": 22.5,
+      "why": "Opens on the cloth falling from the portrait to reveal Meera's own face (shocking reveal hook), ends on a hand grabbing her shoulder in the dark (cliffhanger).",
+      "segments": [
+        {
+          "episode": 9,
+          "start": "01:05.40",
+          "end": "01:27.90",
+          "seconds": 22.5
+        }
+      ]
+    },
+    {
+      "promo_id": "P11",
+      "type": "single",
+      "total_seconds": 39.0,
+      "why": "Opens on Arjun's confession \"Mera baap qatil nahi tha\" (hook), ends on Tanya's camera flash catching them together (cliffhanger). The love triangle reads instantly.",
+      "segments": [
+        {
+          "episode": 10,
+          "start": "00:40.40",
+          "end": "01:19.40",
+          "seconds": 39.0
+        }
+      ]
+    },
+    {
+      "promo_id": "P12",
+      "type": "single",
+      "total_seconds": 51.3,
+      "why": "Opens on Kaushalya flinging the photos into Arjun's face (hook), ends on Arjun saying \"Main ye shaadi karunga\" as Meera's bangles shatter (cliffhanger). Classic forced-wedding stakes.",
+      "segments": [
+        {
+          "episode": 11,
+          "start": "00:30.00",
+          "end": "01:21.30",
+          "seconds": 51.3
+        }
+      ]
+    },
+    {
+      "promo_id": "P13",
+      "type": "single",
+      "total_seconds": 30.1,
+      "why": "Opens on Daadi Sa gripping Meera's wrist and crying \"Tu meri Meenakshi hai\" (emotional reveal hook), ends on Kaushalya's shadow at the door (cliffhanger).",
+      "segments": [
+        {
+          "episode": 12,
+          "start": "00:54.00",
+          "end": "01:24.10",
+          "seconds": 30.1
+        }
+      ]
+    },
+    {
+      "promo_id": "P14",
+      "type": "single",
+      "total_seconds": 21.3,
+      "why": "Opens on Devraj grabbing Meera by the hair from behind in the vault (hook), ends on the will curling into ash in the diya flame (cliffhanger).",
+      "segments": [
+        {
+          "episode": 13,
+          "start": "01:04.60",
+          "end": "01:25.90",
+          "seconds": 21.3
+        }
+      ]
+    },
+    {
+      "promo_id": "P15",
+      "type": "stitched",
+      "total_seconds": 24.9,
+      "why": "Stitched across Ep 13 and Ep 14: the will burning (hook), then hope that a registered copy exists, ending on Kaushalya's voice answering the lawyer's phone (cliffhanger).",
+      "segments": [
+        {
+          "episode": 13,
+          "start": "01:20.90",
+          "end": "01:25.90",
+          "seconds": 5.0
+        },
+        {
+          "episode": 14,
+          "start": "01:10.90",
+          "end": "01:30.80",
+          "seconds": 19.9
+        }
+      ]
+    },
+    {
+      "promo_id": "P16",
+      "type": "single",
+      "total_seconds": 43.6,
+      "why": "Opens on Kaushalya's public command \"Naach, naukrani!\" (humiliation hook), ends on Meera's dupatta catching fire (cliffhanger). Instantly readable class conflict.",
+      "segments": [
+        {
+          "episode": 15,
+          "start": "00:51.80",
+          "end": "01:35.40",
+          "seconds": 43.6
+        }
+      ]
+    },
+    {
+      "promo_id": "P17",
+      "type": "stitched",
+      "total_seconds": 20.8,
+      "why": "Stitched within Ep 16: Arjun leaping and ripping the burning dupatta away (action hook), cut to Daadi Sa collapsing with \"Meenakshi!\" (cliffhanger). Skips the argument in between.",
+      "segments": [
+        {
+          "episode": 16,
+          "start": "00:00.00",
+          "end": "00:09.20",
+          "seconds": 9.2
+        },
+        {
+          "episode": 16,
+          "start": "01:08.00",
+          "end": "01:19.60",
+          "seconds": 11.6
+        }
+      ]
+    },
+    {
+      "promo_id": "P18",
+      "type": "single",
+      "total_seconds": 58.3,
+      "why": "Opens on Daadi Sa's announcement \"DNA test hoga!\" in front of the stunned family (reveal hook), ends on Bhanwar's hand peeling off the sample label (cliffhanger). The stakes are stated in the first line.",
+      "segments": [
+        {
+          "episode": 17,
+          "start": "00:30.10",
+          "end": "01:28.40",
+          "seconds": 58.3
+        }
+      ]
+    },
+    {
+      "promo_id": "P19",
+      "type": "single",
+      "total_seconds": 49.8,
+      "why": "Opens on Kaushalya's slap after the \"no match\" result (hook), ends on Arjun freezing the CCTV frame on Bhanwar paying the lab tech (cliffhanger twist).",
+      "segments": [
+        {
+          "episode": 18,
+          "start": "00:32.80",
+          "end": "01:22.60",
+          "seconds": 49.8
+        }
+      ]
+    },
+    {
+      "promo_id": "P20",
+      "type": "stitched",
+      "total_seconds": 29.4,
+      "why": "Stitched within Ep 19: the lab tech pinned to the wall confessing \"Report maine badli\" (hook), cut to Meera being snatched into a van and her phone ringing in a puddle (cliffhanger).",
+      "segments": [
+        {
+          "episode": 19,
+          "start": "00:20.20",
+          "end": "00:36.60",
+          "seconds": 16.4
+        },
+        {
+          "episode": 19,
+          "start": "01:17.70",
+          "end": "01:30.70",
+          "seconds": 13.0
+        }
+      ]
+    },
+    {
+      "promo_id": "P21",
+      "type": "single",
+      "total_seconds": 26.5,
+      "why": "Opens on petrol splashing across Meera's face as she's tied to a charred pillar (hook), ends on the lit match falling (cliffhanger). No backstory needed: villain, victim, fire.",
+      "segments": [
+        {
+          "episode": 20,
+          "start": "00:55.60",
+          "end": "01:22.10",
+          "seconds": 26.5
+        }
+      ]
+    },
+    {
+      "promo_id": "P22",
+      "type": "single",
+      "total_seconds": 43.6,
+      "why": "Opens on Arjun's motorbike bursting through the burning doorway (action hook), ends on the letter signed \"Tumhari Gayatri\" dated 2025 (reveal cliffhanger).",
+      "segments": [
+        {
+          "episode": 21,
+          "start": "00:35.80",
+          "end": "01:19.40",
+          "seconds": 43.6
+        }
+      ]
+    },
+    {
+      "promo_id": "P23",
+      "type": "stitched",
+      "total_seconds": 23.4,
+      "why": "Stitched across Ep 20 and Ep 21: Devraj lights the match, then Meera survives and finds a letter proving her mother is alive.",
+      "segments": [
+        {
+          "episode": 20,
+          "start": "01:10.40",
+          "end": "01:22.10",
+          "seconds": 11.7
+        },
+        {
+          "episode": 21,
+          "start": "01:07.50",
+          "end": "01:19.20",
+          "seconds": 11.7
+        }
+      ]
+    },
+    {
+      "promo_id": "P24",
+      "type": "single",
+      "total_seconds": 28.4,
+      "why": "Opens on the sadhvi striking Meera's hand away (hook), ends on the veil falling to reveal a burn-scarred face and Meera whispering \"Maa?\" (reveal cliffhanger).",
+      "segments": [
+        {
+          "episode": 22,
+          "start": "01:01.90",
+          "end": "01:30.30",
+          "seconds": 28.4
+        }
+      ]
+    },
+    {
+      "promo_id": "P25",
+      "type": "single",
+      "total_seconds": 41.0,
+      "why": "Opens on Gayatri's line \"Mere pati ko zinda jalaaya gaya tha\" (shocking reveal hook), ends on her naming Mohan Rathore as present that night and Arjun freezing (cliffhanger).",
+      "segments": [
+        {
+          "episode": 23,
+          "start": "00:51.40",
+          "end": "01:32.40",
+          "seconds": 41.0
+        }
+      ]
+    },
+    {
+      "promo_id": "P26",
+      "type": "stitched",
+      "total_seconds": 41.7,
+      "why": "Stitched within Ep 24: Arjun gripping Gayatri's shoulders shouting \"Mere baap ne kya kiya tha?\" through to \"wo hero the\" (hook + payoff), cut to the goons arriving and the ashram gate smashing open (cliffhanger).",
+      "segments": [
+        {
+          "episode": 24,
+          "start": "00:00.00",
+          "end": "00:31.50",
+          "seconds": 31.5
+        },
+        {
+          "episode": 24,
+          "start": "01:12.70",
+          "end": "01:22.90",
+          "seconds": 10.2
+        }
+      ]
+    },
+    {
+      "promo_id": "P27",
+      "type": "stitched",
+      "total_seconds": 23.8,
+      "why": "Stitched within Ep 25: the ghat chase (Arjun blocking a lathi meant for Gayatri) cut straight to Tanya pulling the crested shawl out of Arjun's car (cliffhanger). Action hook plus a secret about to blow open.",
+      "segments": [
+        {
+          "episode": 25,
+          "start": "00:02.00",
+          "end": "00:12.40",
+          "seconds": 10.4
+        },
+        {
+          "episode": 25,
+          "start": "01:26.10",
+          "end": "01:39.50",
+          "seconds": 13.4
+        }
+      ]
+    },
+    {
+      "promo_id": "P28",
+      "type": "single",
+      "total_seconds": 58.0,
+      "why": "Opens on Tanya's slap across Arjun's face (hook), ends on Kaushalya's teacup shattering at \"Maharani Gayatri zinda hai\" (cliffhanger).",
+      "segments": [
+        {
+          "episode": 26,
+          "start": "00:32.20",
+          "end": "01:30.20",
+          "seconds": 58.0
+        }
+      ]
+    },
+    {
+      "promo_id": "P29",
+      "type": "single",
+      "total_seconds": 24.6,
+      "why": "Opens on Devraj spinning a revolver's cylinder and snapping it shut (hook), ends on Kaushalya's line \"do laashein girengi\" heard by Meera through the monitor (cliffhanger).",
+      "segments": [
+        {
+          "episode": 27,
+          "start": "01:05.50",
+          "end": "01:30.10",
+          "seconds": 24.6
+        }
+      ]
+    },
+    {
+      "promo_id": "P30",
+      "type": "single",
+      "total_seconds": 29.7,
+      "why": "Opens on Devraj shoving Meera into the dark storeroom and snapping the padlock (hook), ends on Tanya in full bridal dress opening the door saying \"Mujhe sach dikhao\" (cliffhanger twist).",
+      "segments": [
+        {
+          "episode": 28,
+          "start": "00:52.40",
+          "end": "01:22.10",
+          "seconds": 29.7
+        }
+      ]
+    },
+    {
+      "promo_id": "P31",
+      "type": "single",
+      "total_seconds": 40.3,
+      "why": "Opens on Kaushalya's line that Tanya can become a widow for all she cares (shocking hook), ends on Bhanwar spotting the bride swap through the window (cliffhanger).",
+      "segments": [
+        {
+          "episode": 29,
+          "start": "00:45.60",
+          "end": "01:25.90",
+          "seconds": 40.3
+        }
+      ]
+    },
+    {
+      "promo_id": "P32",
+      "type": "single",
+      "total_seconds": 23.7,
+      "why": "Opens on Arjun noticing the bride's wrist — \"Ye haath Tanya ka nahi\" (hook), ends on Kaushalya ripping off the veil and gasping \"Tum?!\" (reveal cliffhanger).",
+      "segments": [
+        {
+          "episode": 30,
+          "start": "00:50.70",
+          "end": "01:14.40",
+          "seconds": 23.7
+        }
+      ]
+    },
+    {
+      "promo_id": "P33",
+      "type": "single",
+      "total_seconds": 20.3,
+      "why": "Opens on Gayatri's entrance and her line \"Baais saal baad laut aayi hoon, Kaushalya\" (shock hook), ends on Devraj pressing a revolver to Daadi Sa's head (cliffhanger).",
+      "segments": [
+        {
+          "episode": 31,
+          "start": "00:58.20",
+          "end": "01:18.50",
+          "seconds": 20.3
+        }
+      ]
+    },
+    {
+      "promo_id": "P34",
+      "type": "single",
+      "total_seconds": 20.7,
+      "why": "Opens on Kaushalya slapping her own daughter Tanya at the mandap — \"Gaddaar!\" (hook), ends on Bhanwar's threat to reveal the truth about Mohan Rathore's death (cliffhanger).",
+      "segments": [
+        {
+          "episode": 32,
+          "start": "00:57.30",
+          "end": "01:18.00",
+          "seconds": 20.7
+        }
+      ]
+    },
+    {
+      "promo_id": "P35",
+      "type": "stitched",
+      "total_seconds": 28.0,
+      "why": "Stitched across Ep 30, 31 and 32 — the mandap showdown: the veil ripped off, Devraj's gun at Daadi Sa's head, Bhanwar's threat to reveal everything.",
+      "segments": [
+        {
+          "episode": 30,
+          "start": "01:03.70",
+          "end": "01:12.50",
+          "seconds": 8.8
+        },
+        {
+          "episode": 31,
+          "start": "01:07.90",
+          "end": "01:16.60",
+          "seconds": 8.7
+        },
+        {
+          "episode": 32,
+          "start": "01:07.30",
+          "end": "01:17.80",
+          "seconds": 10.5
+        }
+      ]
+    },
+    {
+      "promo_id": "P36",
+      "type": "single",
+      "total_seconds": 45.0,
+      "why": "Opens on Bhanwar falling at Arjun's feet confessing \"Tumhare baap ko jail mein maine marwaaya\" (hook), ends on Kaushalya's whisper asking whether anyone ever saw Vikram's body (cliffhanger).",
+      "segments": [
+        {
+          "episode": 33,
+          "start": "00:25.70",
+          "end": "01:10.70",
+          "seconds": 45.0
+        }
+      ]
+    },
+    {
+      "promo_id": "P37",
+      "type": "stitched",
+      "total_seconds": 24.3,
+      "why": "Stitched within Ep 34: Dr Joshi announcing the 99.9% DNA match (reveal hook), cut to Gayatri recognising Vikram's handwriting on the envelope (cliffhanger). Skips the resolved, happy middle.",
+      "segments": [
+        {
+          "episode": 34,
+          "start": "00:09.80",
+          "end": "00:20.80",
+          "seconds": 11.0
+        },
+        {
+          "episode": 34,
+          "start": "01:12.10",
+          "end": "01:25.40",
+          "seconds": 13.3
+        }
+      ]
+    },
+    {
+      "promo_id": "P38",
+      "type": "stitched",
+      "total_seconds": 25.5,
+      "why": "Stitched within Ep 35: the royal signet ring falling out of the envelope and the photo proving someone was watching (hook), cut to the scarred man on the hill saying \"Meenakshi... ab main aa raha hoon\" (season cliffhanger).",
+      "segments": [
+        {
+          "episode": 35,
+          "start": "00:03.00",
+          "end": "00:18.60",
+          "seconds": 15.6
+        },
+        {
+          "episode": 35,
+          "start": "01:13.20",
+          "end": "01:23.10",
+          "seconds": 9.9
+        }
+      ]
+    }
+  ],
+  "traps": [
+    {
+      "episode": 5,
+      "start": "01:11.40",
+      "end": "01:15.20",
+      "text": "Ye... ye fake hai! Arjun, tum uski taraf se—",
+      "reason": "panic line mid-reveal; without the CCTV setup a new viewer cannot follow it"
+    },
+    {
+      "episode": 6,
+      "start": "00:07.90",
+      "end": "00:12.10",
+      "text": "Tumne ek naukrani ke liye mujhe sabke saamne zaleel kiya.",
+      "reason": "emotional but refers to an earlier event and resolves nothing; weak hook, no cliffhanger"
+    },
+    {
+      "episode": 6,
+      "start": "00:48.60",
+      "end": "00:51.10",
+      "text": "Close-up on Devraj hanging up and kicking the car tyre, furious.",
+      "reason": "angry outburst about a side character's gambling debt; disconnected from the main story for a new viewer"
+    },
+    {
+      "episode": 10,
+      "start": "00:05.50",
+      "end": "00:07.90",
+      "text": "Close-up on Kaushalya jerking awake, screaming.",
+      "reason": "a nightmare scream looks like a hook, but it's only a dream and a stranger has no idea what she is afraid of"
+    },
+    {
+      "episode": 11,
+      "start": "00:47.70",
+      "end": "00:55.00",
+      "text": "Rathore Hotels ka saara karz ab mere naam hai. Teen sau crore. Ek phone, aur tumhari company neelaam.",
+      "reason": "exposition-heavy business threat; big number but no visual hook and it continues mid-negotiation"
+    },
+    {
+      "episode": 12,
+      "start": "00:22.90",
+      "end": "00:27.50",
+      "text": "Aapki zindagi ki har cheez chaal hai, Kunwar Sa. Main bhi?",
+      "reason": "emotional quarrel that depends on knowing the blackmail from Ep 11; no visual hook and the scene simply ends"
+    },
+    {
+      "episode": 14,
+      "start": "00:31.10",
+      "end": "00:36.40",
+      "text": "Ruko. Ye stamp dekho. Vasiyat panjeekrit thi. Asli copy vakeel ke paas hogi.",
+      "reason": "explains a legal detail; key information but no emotional hook or cliffhanger on its own"
+    },
+    {
+      "episode": 16,
+      "start": "00:14.70",
+      "end": "00:17.50",
+      "text": "Close-up on Devraj filming the chaos on his phone, laughing.",
+      "reason": "loud and chaotic but a side gag; no clear hook and nothing unresolved"
+    },
+    {
+      "episode": 18,
+      "start": "00:18.50",
+      "end": "00:24.20",
+      "text": "Samples ke beech STR markers ka mel... shoonya pratishat. Koi jaivik rishta nahi hai.",
+      "reason": "the result is delivered in dry technical language; strong moment for the story but a weak opening for strangers"
+    },
+    {
+      "episode": 23,
+      "start": "01:09.60",
+      "end": "01:20.30",
+      "text": "Uske baad police aayi, file bani, aadhe kaagaz jale, aadhe gayab hue. Kaushalya ne Diwan ke saath milke saari jaaydaad ki dekhrekh apne haath mein le li.",
+      "reason": "long exposition about the legal aftermath; no visual hook and no tension"
+    },
+    {
+      "episode": 27,
+      "start": "00:35.30",
+      "end": "00:45.90",
+      "text": "Medium shot of Bhanwar spreading a hand-drawn map of the wedding mandap on the table.",
+      "reason": "the plotting begins with logistics on a map; it looks tense but a stranger has no idea who anyone is"
+    },
+    {
+      "episode": 30,
+      "start": "00:38.60",
+      "end": "00:43.70",
+      "text": "Medium shot of PANDIT JI chanting, raising his hands over the fire.",
+      "reason": "the ritual chanting looks grand but nothing happens; no hook and no cliffhanger"
+    },
+    {
+      "episode": 33,
+      "start": "00:00.30",
+      "end": "00:05.30",
+      "text": "Maa! Sab aapki wajah se hua! Aapne kaha tha kuch nahi hoga!",
+      "reason": "loud outburst, but it is aftermath — the villain is already caught and the line resolves nothing"
+    },
+    {
+      "episode": 33,
+      "start": "00:50.70",
+      "end": "00:57.20",
+      "text": "Kaushalya Devi, aapko hatya, hatya ki saazish aur dhokhadhadi ke aarop mein giraftaar kiya jaata hai.",
+      "reason": "legal charges read out formally; important plot closure but slow and fully resolved"
+    },
+    {
+      "episode": 34,
+      "start": "01:00.00",
+      "end": "01:04.60",
+      "text": "Rajkumari Meenakshi, kya aap ek munim ke bete se shaadi karengi?",
+      "reason": "sweet, fully resolved romantic moment; emotionally satisfying but no cliffhanger"
+    },
+    {
+      "episode": 35,
+      "start": "00:46.50",
+      "end": "00:48.80",
+      "text": "Toh khel ab shuru hoga.",
+      "reason": "villain smiling at a note is intriguing but too cryptic to work for a new viewer on its own"
+    }
+  ]
+}
